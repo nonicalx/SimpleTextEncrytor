@@ -62,5 +62,36 @@ namespace TextEcryptorApp
 
             return encrytedValue;
         }
+
+
+        public void WriteToFile()
+        {
+            ///Under Construction Good Night
+            string folderPath = @"c:\EncrytedFiles";
+            if (Directory.Exists(folderPath))
+            {
+                string fileName = folderPath+@"\encrypted";
+                try
+                {
+                    if (File.Exists(fileName))
+                    {
+                        Console.WriteLine("File Already Exist!!!");
+                    }
+                    else
+                    {
+                        using (FileStream fs = File.Create(fileName))
+                        {
+
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+           
+        }
     }
 }
