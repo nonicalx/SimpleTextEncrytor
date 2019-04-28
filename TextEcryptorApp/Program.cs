@@ -14,6 +14,8 @@ namespace TextEcryptorApp
             Encryptor encryptor = new Encryptor();
             string path = @"C:\Users\USER\Desktop\testSubject.txt";
             string encrytedResult = encryptor.Encrypt(path);
+
+            Console.WriteLine(FileHandler.WriteStringToFile(path, encrytedResult));
             Console.WriteLine(encrytedResult);
 
             Console.ReadLine();

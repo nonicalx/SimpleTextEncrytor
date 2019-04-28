@@ -25,14 +25,36 @@ namespace TextEcryptorApp
             throw new NotImplementedException();
         }
 
-        public static void CreateFile()
+        private static string CreateFileName(string pathOfOriginalFile)
         {
-            throw new NotImplementedException();
+            string fileName = "Encrytped" + Path.GetFileName(pathOfOriginalFile);
+            string file = @"C:\EncryptedFiles\" + fileName;
+
+            return file;
         }
 
-        public static void WriteStringToFile()
+        public static string WriteStringToFile(string path, string text)
         {
-            throw new NotImplementedException();
+            string fileName = CreateFileName(path);
+            string jobComplete = "String successfully written in " + fileName;
+            try
+            {
+                if (File.Exists(fileName))
+                {
+                    File.Delete(fileName);
+                }
+
+                using (StreamWriter sw = File.CreateText(fileName))
+                {
+                    sw.WriteLine(text);
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+
+            return jobComplete;
         }
     }
 }
