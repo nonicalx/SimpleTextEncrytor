@@ -20,9 +20,23 @@ namespace TextEcryptorApp
             return wordToEncrypt;
         }
 
-        public static void CreateFolder()
+        private static void CreateFolder()
         {
-            throw new NotImplementedException();
+            string folderPath = @"C:\EncryptedFiles";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+            
+        }
+
+        public static string CreateFileName()
+        {
+            string nameOfOrignalFile = Console.ReadLine();
+            string fileName = "Encrytped" + nameOfOrignalFile;
+            string file = @"C:\EncryptedFiles\" + fileName;
+
+            return file;
         }
 
         private static string CreateFileName(string pathOfOriginalFile)
@@ -33,8 +47,10 @@ namespace TextEcryptorApp
             return file;
         }
 
+
         public static string WriteStringToFile(string path, string text)
         {
+            CreateFolder();
             string fileName = CreateFileName(path);
             string jobComplete = "String successfully written in " + fileName;
             try

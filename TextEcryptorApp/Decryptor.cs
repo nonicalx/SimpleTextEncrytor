@@ -10,7 +10,26 @@ namespace TextEcryptorApp
     {
         public string Decrypt(string path)
         {
-            throw new NotImplementedException();
+            int value = 0;
+            string textToDecrypt = FileHandler.GetStringFromFile(path);
+            string[] seperatedString = textToDecrypt.Split('e', 'o');
+            string wordsToSaveToFile = "";
+
+            foreach (var hashValue in seperatedString)
+            {
+                int intHashValue = int.Parse(hashValue);
+                if (intHashValue % 2 == 0)
+                {
+                    value = intHashValue * 2;
+                    wordsToSaveToFile += Characters.characters[value].ToString();
+                }
+                else
+                {
+                    value = (intHashValue - 1) / 3;
+                    wordsToSaveToFile += Characters.characters[value].ToString();
+                }
+            }
+            return wordsToSaveToFile;
         }
     }
 }
