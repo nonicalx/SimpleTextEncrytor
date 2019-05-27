@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace TextEcryptorApp
 {
+    enum Mode
+    {
+        encrypt = 0,
+        decrypt = 1
+    }
     class FileHandler
     {
 
@@ -20,13 +25,30 @@ namespace TextEcryptorApp
             return wordToEncrypt;
         }
 
-        private static void CreateFolder()
+        private static void CreateFolder(Mode mode)
         {
-            string folderPath = @"C:\EncryptedFiles";
-            if (!Directory.Exists(folderPath))
+            string folderPath = "";
+            switch (mode)
             {
-                Directory.CreateDirectory(folderPath);
+                
+                case Mode.encrypt:
+                    folderPath = @"C:\EncryptedFiles";
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    break;
+                case Mode.decrypt:
+                    folderPath = @"C:\DecryptedFiles";
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    break;
+                default:
+                    break;
             }
+
             
         }
 
@@ -39,19 +61,32 @@ namespace TextEcryptorApp
             return file;
         }
 
-        private static string CreateFileName(string pathOfOriginalFile)
+        public static string CreateFileName(string pathOfOriginalFile, Mode mode)
         {
-            string fileName = "Encrytped" + Path.GetFileName(pathOfOriginalFile);
-            string file = @"C:\EncryptedFiles\" + fileName;
-
+            string fileName = "";
+            string file = "";
+            switch (mode)
+            {
+                case Mode.encrypt:
+                    fileName = "Encrypted" + Path.GetFileName(pathOfOriginalFile);
+                    file = @"C:\EncryptedFiles\" + fileName;
+                    break;
+                case Mode.decrypt:
+                    fileName = Path.GetFileName(pathOfOriginalFile).Replace("En", "De");
+                    file = @"C:\DecryptedFiles\" + fileName;
+                    break;
+                default:
+                    break;
+            }
             return file;
+            
         }
 
 
-        public static string WriteStringToFile(string path, string text)
+        public static string WriteStringToFile(string path, string text, Mode mode)
         {
-            CreateFolder();
-            string fileName = CreateFileName(path);
+            CreateFolder(mode);
+            string fileName = CreateFileName(path, mode);
             string jobComplete = "String successfully written in " + fileName;
             try
             {

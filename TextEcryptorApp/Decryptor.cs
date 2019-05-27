@@ -11,25 +11,37 @@ namespace TextEcryptorApp
         public string Decrypt(string path)
         {
             int value = 0;
-            string textToDecrypt = FileHandler.GetStringFromFile(path);
-            string[] seperatedString = textToDecrypt.Split('e', 'o');
+            int intHashValue = 0;
+            string hashValueNum = "";
+            string textToDecrypt = FileHandler.GetStringFromFile(path).Trim().TrimStart();
+            string[] seperatedString = textToDecrypt.Split(' ');
             string wordsToSaveToFile = "";
 
             foreach (var hashValue in seperatedString)
             {
-                int intHashValue = int.Parse(hashValue);
-                if (intHashValue % 2 == 0)
+                if (hashValue!="")
                 {
-                    value = intHashValue * 2;
-                    wordsToSaveToFile += Characters.characters[value].ToString();
-                }
-                else
-                {
-                    value = (intHashValue - 1) / 3;
-                    wordsToSaveToFile += Characters.characters[value].ToString();
-                }
+                    int lastIndex = hashValue.Length - 1;
+                    
+                    
+                    if (hashValue[lastIndex]== 'e')
+                    {
+                        hashValueNum = hashValue.Remove(lastIndex);
+                        intHashValue = int.Parse(hashValueNum);
+                        value = (intHashValue * 2)-1;
+                        wordsToSaveToFile += Characters.characters[value].ToString();
+                    }
+                    else
+                    {
+                        hashValueNum = hashValue.Remove(lastIndex);
+                        intHashValue = int.Parse(hashValueNum);
+                        value = ((intHashValue - 1) / 3)-1;
+                        wordsToSaveToFile += Characters.characters[value].ToString();
+                    }
+                }   
             }
-            return wordsToSaveToFile;
+            string result ="DECRYPTED and "+FileHandler.WriteStringToFile(path, wordsToSaveToFile, Mode.decrypt);
+            return result;
         }
     }
 }

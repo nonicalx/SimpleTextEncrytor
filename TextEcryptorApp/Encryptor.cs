@@ -34,18 +34,19 @@ namespace TextEcryptorApp
                         if (value % 2 == 0)
                         {
                             hashValue = value / 2;
-                            encrytedValue += "e" + hashValue.ToString();
+                            encrytedValue += hashValue.ToString()+"e"+" ";
                         }
                         else
                         {
                             hashValue = (value * 3) + 1;
-                            encrytedValue += "o" + hashValue.ToString();
+                            encrytedValue += hashValue.ToString()+"o"+" ";
                         }
                     }
                 }
             }
-
-            return encrytedValue;
+            string result ="ENCRYPTED and "+FileHandler.WriteStringToFile(path, encrytedValue, Mode.encrypt);
+            
+            return result;
         }
     }
 }

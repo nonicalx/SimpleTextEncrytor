@@ -11,21 +11,15 @@ namespace TextEcryptorApp
     {
         static void Main(string[] args)
         {
-            //Encryptor encryptor = new Encryptor();
-            //string path = @"C:\Users\Nerd Stark\Desktop\test.txt";
-            //string encrytedResult = encryptor.Encrypt(path);
+            Encryptor encryptor = new Encryptor();
+            string report = encryptor.Encrypt(@"C:\Users\Nerd Stark\Desktop\test2.txt");
+            Console.WriteLine(report);
 
-            //Console.WriteLine(FileHandler.WriteStringToFile(path, encrytedResult));
-            //Console.WriteLine(encrytedResult);
-
-            //Console.ReadLine();
-            string text = "10e12e23e24e33o22e15o";
-            string[] separators = text.Split('e', 'o');
-            foreach (var item in separators) 
-            {
-                Console.WriteLine(item);
-            }
+            Decryptor decryptor = new Decryptor();
+            report = decryptor.Decrypt(@"C:\EncryptedFiles\Encryptedtest2.txt");
+            Console.WriteLine(report);
             Console.ReadLine();
+
         }
 
 
